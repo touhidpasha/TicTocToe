@@ -1,17 +1,16 @@
 class Game{
+    /*here Game class can we used to call methods by 
+    creating it's objects*/
 
     public char[] board=new char[10];
     
-    Game(){
-        for(int i=1;i<10;i++)
-        board[i]=' ';
+    public void intialize(){
+        for(int i=1;i<board.length;i++)
+           { 
+               board[i]=' ';        //intializing array with spaces
+            }                   
     }
-    public void addToBoard(int x){
-
-    }
-    public int checkWinner(){
-        return(0);
-    }
+    
     
 }
 
