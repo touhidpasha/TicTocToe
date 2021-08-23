@@ -2,6 +2,10 @@ class Game{
 
     public char[] board=new char[10];
     
+    Game(){
+        for(int i=1;i<10;i++)
+        board[i]=' ';
+    }
     public void addToBoard(int x){
 
     }
