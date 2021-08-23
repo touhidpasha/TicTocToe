@@ -6,7 +6,8 @@ class Game{
 
     Scanner sc=new Scanner(System.in);
     public char[] board=new char[10];
-    char userChoice;    
+    char userChoice; 
+    int boxNumber;   
     
     public void intialize(){
         for(int i=1;i<board.length;i++)
@@ -33,6 +34,21 @@ class Game{
            }
         
     }
+    public void selectBox(){
+        System.out.print("These are current board values ");
+        showBoard();
+        System.out.print("Choose between 1 to 9 having empty box");
+        boxNumber=sc.nextInt();
+        if(board[boxNumber]!=' '){
+        System.out.print("Already filled choose different one");
+        System.out.print("These are current board values ");
+        showBoard();
+        System.out.println("Choose between 1 to 9 having empty box");
+        boxNumber=sc.nextInt();
+        }
+        
+
+    }
     
     
 }
@@ -43,5 +59,6 @@ public class TicTocToeGame{
         obj.intialize();
         obj.selectOption();
         obj.showBoard();
+        obj.selectBox();
     }
 }
