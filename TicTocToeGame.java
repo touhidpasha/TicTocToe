@@ -25,6 +25,7 @@ class Game{
 
     public void showBoard(){
         int i=1;
+        System.out.println("##############");
         while(i<board.length)
            { 
                for( int j=0;j<3;j++)
@@ -32,6 +33,7 @@ class Game{
                 System.out.println();
                 
            }
+           System.out.println("##############");
         
     }
     public void selectBox(){
@@ -48,6 +50,16 @@ class Game{
         }
         
 
+        
+    }
+
+    public char toss()
+    {
+        if(((int) ((Math.random() * (6 - 1)) + 1))%2==0)
+            return 'h';
+        else
+            return 't';
+
     }
     
     
@@ -56,9 +68,11 @@ class Game{
 public class TicTocToeGame{
     public static void main(String args[]){
         Game obj=new Game();
+        char tossVar;
         obj.intialize();
         obj.selectOption();
         obj.showBoard();
         obj.selectBox();
+        tossVar=obj.toss();
     }
 }
