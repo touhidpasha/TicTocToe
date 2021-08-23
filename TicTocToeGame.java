@@ -21,6 +21,18 @@ class Game{
         userChoice=sc.next().charAt(0);
         
     }
+
+    public void showBoard(){
+        int i=1;
+        while(i<board.length)
+           { 
+               for( int j=0;j<3;j++)
+                    System.out.print(" "+board[i++]);
+                System.out.println();
+                
+           }
+        
+    }
     
     
 }
@@ -30,5 +42,6 @@ public class TicTocToeGame{
         Game obj=new Game();
         obj.intialize();
         obj.selectOption();
+        obj.showBoard();
     }
 }
