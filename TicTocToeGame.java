@@ -61,6 +61,45 @@ class Game{
             return 't';
 
     }
+
+    public char checkWinner()
+    {
+        if(board[1]==board[2] && board[2]==board[3] )
+            return board[1];
+        else if(board[4]==board[5] && board[5]==board[6] )
+            return board[6];
+        else if(board[7]==board[8] && board[7]==board[9] )
+            return board[7];
+        else if(board[1]==board[4] && board[4]==board[7] )
+            return board[1];
+        else if(board[2]==board[5] && board[5]==board[8] )
+            return board[2];
+        else if(board[3]==board[6] && board[6]==board[9] )
+            return board[3];
+        else if(board[1]==board[5] && board[5]==board[9] )
+            return board[1];
+        else if(board[3]==board[5] && board[5]==board[7] )
+            return board[3];
+        else
+        return 'N';
+    }
+    public char checkForNextMove(){
+        char flag='N';
+        for(int i=1;i<board.length;i++)
+           { 
+               if(board[i]==' ') //code for not tie
+               {
+                //flag='N';
+                flag=checkWinner();
+                break;
+               }
+                else
+                    flag='T'; //var gfor tie
+            }
+
+
+            return flag;
+    }
     
     
 }
@@ -68,11 +107,28 @@ class Game{
 public class TicTocToeGame{
     public static void main(String args[]){
         Game obj=new Game();
-        char tossVar;
+        char tossVar,winner;
         obj.intialize();
         obj.selectOption();
         obj.showBoard();
         obj.selectBox();
         tossVar=obj.toss();
+        winner=obj.checkForNextMove();
+        if(winner=='T')
+        {
+            System.out.println("match got tied");
+        }
+        else if(winner=='o')
+        {
+            System.out.println("machine won the match");
+        }
+        else if(winner=='x')
+        {
+            System.out.println("you won the match");
+        }
+        else
+        {
+            obj.selectOption();
+        }
     }
 }
