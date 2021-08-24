@@ -81,9 +81,10 @@ class Game{
         for(int i=1;i<4;i++)
         {
             if(board[i]==board[i+6])
+            if(board[i+6]==' '){
             board[i+3]=(userChoice=='o'?'x':'o');
             //selectBox();
-            return(0);
+            return(0);}
         }
         for(int i=4;i<7;i++)
         {
@@ -163,8 +164,9 @@ class Game{
         for(int i=1;i<board.length;i++)
            { 
                if(board[i]==' ' && i!=5)
-               {board[i]=(userChoice=='o'?'x':'o');  
-               return 0;
+               {if(board[i]==' '){
+                   board[i]=(userChoice=='o'?'x':'o');  
+               return 0;}
                  }  
             }   
 
@@ -243,7 +245,8 @@ class Game{
 public class TicTocToeGame{
     public static void main(String args[]){
         Game obj=new Game();
-        char tossVar,winner;
+        char tossVar,winner,playAgain;
+        Scanner sc=new Scanner(System.in);
         obj.intialize();
         tossVar=obj.toss();
 
@@ -278,27 +281,75 @@ public class TicTocToeGame{
 
         //obj.showBoard();
         obj.selectBox();
-        obj.machineMove();
+        obj.showBoard();
         winner=obj.checkForNextMove();//checking winnig statistics
+        
         
         //below code is to continue untill one person win's or match got tied
         if(winner=='T')
         {
             System.out.println("match got tied");
-            break;
+            System.out.println("Do you want play another match,press Y/n");
+            playAgain=sc.next().charAt(0);
+            if(playAgain=='Y')
+            obj.intialize();
+            else
+             break;
+            
         }
             
         else if(winner=='o' || winner=='x')
-            
-        {
+            {
             if(obj.userChoice==winner)
                 System.out.println("you won the match");
             else
                 System.out.println("machine won the match");
-            break;
+            System.out.println("Do you want play another match,press Y/n");
+            playAgain=sc.next().charAt(0);
+            if(playAgain=='Y')
+            obj.intialize();
+            else
+             break;
+            
         }
         //else continue;
         
+        obj.machineMove();
+        obj.showBoard();
+
+        winner=obj.checkForNextMove();//checking winnig statistics
+        
+        
+        //below code is to continue untill one person win's or match got tied
+        if(winner=='T')
+        {
+            System.out.println("match got tied");
+            System.out.println("Do you want play another match,press Y/n");
+            playAgain=sc.next().charAt(0);
+            if(playAgain=='Y')
+            obj.intialize();
+            else
+             break;
+            
+        }
+            
+        else if(winner=='o' || winner=='x')
+            {
+            if(obj.userChoice==winner)
+                System.out.println("you won the match");
+            else
+                System.out.println("machine won the match");
+            System.out.println("Do you want play another match,press Y/n");
+            playAgain=sc.next().charAt(0);
+            if(playAgain=='Y')
+            obj.intialize();
+            else
+             break;
+            
+        }
+        //else continue;
+        
+
         /*if(winner=='x')
         {
             if(obj.userChoice=='x')
