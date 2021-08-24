@@ -169,7 +169,7 @@ class Game{
             }   
 
         //if above conditions not followed then find empty box and place randamoly
-
+            //if no corner spaces available then will take centre
         for(int i=1;i<board.length;i++)
            { 
                if(board[i]==' ')
