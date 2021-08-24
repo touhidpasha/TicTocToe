@@ -6,7 +6,7 @@ class Game{
 
     Scanner sc=new Scanner(System.in);
     public char[] board=new char[10];
-    char userChoice; 
+    char userChoice,machineChoice; 
     int boxNumber;   
     
     public void intialize(){
@@ -16,10 +16,20 @@ class Game{
             }                   
     }
 
+    public char toss()
+    {
+        if(((int) ((Math.random() * (6 - 1)) + 1))%2==0)
+            return 'h';
+        else
+            return 't';
+
+    }
+
     public void selectOption()
     {
         System.out.println("Enter x or o as your choice");
         userChoice=sc.next().charAt(0);
+        machineChoice=(userChoice=='o'?'x':'o');
         //selectBox();
     }
 
@@ -36,7 +46,9 @@ class Game{
            System.out.println("##############");
         
     }
+
     public void selectBox(){
+        System.out.println("\n");
         System.out.println("These are current board values ");
         showBoard();
         System.out.println("Choose between 1 to 9 having empty box");
@@ -48,20 +60,118 @@ class Game{
         System.out.println("Choose between 1 to 9 having empty box");
         boxNumber=sc.nextInt();
         }
+        System.out.println("you selected "+boxNumber);
         board[boxNumber]=userChoice; //based on user choice of symbol empbty field will be filled
         //machineMove();
 
         
     }
 
-    public char toss()
-    {
-        if(((int) ((Math.random() * (6 - 1)) + 1))%2==0)
-            return 'h';
-        else
-            return 't';
+    public int machineMove(){
+        
+        //horizontally finding for winning
+        for(int i=1;i<4;i++)
+        {
+            if(board[i]==board[i+3])
+            if(board[i+6]==' '){
+            board[i+6]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            return(0);}
+        }
+        for(int i=1;i<4;i++)
+        {
+            if(board[i]==board[i+6])
+            board[i+3]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            return(0);
+        }
+        for(int i=4;i<7;i++)
+        {
+            if(board[i]==board[i+3])
+            if(board[i-3]==' '){
+            board[i-3]=(userChoice=='o'?'x':'o');
+            //selectBox();  
+        return(0);}
+        }
+
+        //vertically finding for winning
+        
+        for(int i=1;i<8;i=i+3)
+        {
+            if(board[i]==board[i+1])
+            if(board[i+2]==' '){
+            board[i+2]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            
+            return(0);}
+
+        }
+
+         
+        for(int i=1;i<8;i=i+3)
+        {
+            if(board[i]==board[i+2])
+            if(board[i+1]==' '){
+            board[i+1]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            return(0);}
+
+        }
+        for(int i=2;i<9;i=i+3)
+        {
+            if(board[i]==board[i+1])
+            if(board[i-1]==' '){
+            board[i-1]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            return(0);}
+
+        }
+
+        //cross checking
+        if(board[1]==board[5])
+        { if(board[0]==' '){
+            board[9]=(userChoice=='o'?'x':'o');
+            return 0;}
+        }
+        if(board[1]==board[9])
+        {if(board[5]==' '){
+            board[5]=(userChoice=='o'?'x':'o');
+            return 0;}
+        }
+        if(board[5]==board[9])
+        {if(board[1]==' '){
+            board[1]=(userChoice=='o'?'x':'o');
+            return 0;}
+        }
+        if(board[3]==board[7])
+        {if(board[5]==' '){
+            board[5]=(userChoice=='o'?'x':'o');
+            return 0;}
+        }
+        if(board[3]==board[5])
+        {if(board[7]==' '){
+            board[7]=(userChoice=='o'?'x':'o');
+            return 0;}
+        }
+        if(board[7]==board[5])
+        {if(board[3]==' '){
+            board[3]=(userChoice=='o'?'x':'o');
+            return 0;}
+        }
+        //if above conditions not followed then find empty box and place randamoly
+
+        for(int i=1;i<board.length;i++)
+           { 
+               if(board[i]==' ')
+               {board[i]=(userChoice=='o'?'x':'o');  
+               return 0;
+                 }  
+            }                   
+    return 0;
 
     }
+
+    
 
     public char checkWinner()
     {
@@ -93,81 +203,30 @@ class Game{
                {
                 //flag='N';
                 flag=checkWinner();
-                break;
+                
+                if(flag!='N')
+                    {   
+                        return flag;
+                       // break;
+                    }
                }
-                else
-                    flag='T'; //var for tie
+               
             }
 
-
+            for(int i=1;i<board.length;i++)
+           { 
+               if(board[i]!=' ') //code for not tie
+               {
+                    flag='T';
+               }
+               else
+                flag='N';
+            }
+        
             return flag;
     }
     
-    public int machineMove(){
-        
-        for(int i=1;i<4;i++)
-        {
-            if(board[i]==board[i+1])
-            board[i+2]=(userChoice=='o'?'x':'o');
-            //selectBox();
-            return(0);
-        }
-        for(int i=1;i<4;i++)
-        {
-            if(board[i]==board[i+2])
-            board[i+1]=(userChoice=='o'?'x':'o');
-            //selectBox();
-            return(0);
-        }
-        for(int i=4;i<7;i++)
-        {
-            if(board[i]==board[i+1])
-            board[i-1]=(userChoice=='o'?'x':'o');
-            //selectBox();  
-        return(0);
-        }
-        
-        for(int i=1;i<8;i=i+3)
-        {
-            if(board[i]==board[i+1])
-            board[i+2]=(userChoice=='o'?'x':'o');
-            //selectBox();
-            
-            return(0);
-
-        }
-
-         
-        /*for(int i=1;i<8;i=i+3)
-        {
-            if(board[i]==board[i+6])
-            board[i+3]=(userChoice=='o'?'x':'o');
-            //selectBox();
-            //return(0);
-
-        }
-        for(int i=2;i<9;i=i+3)
-        {
-            if(board[i]==board[i+3])
-            board[i-3]=(userChoice=='o'?'x':'o');
-            //selectBox();
-            //return(0);
-
-        }
-
-        //if no way to win from above conditons then place in empty box then below conditions will be checked
-        for(int i=1;i<board.length;i++)
-        {
-            if(board[i]==' '){
-                board[i]=(userChoice=='o'?'x':'o');
-                //selectBox();
-                //return(0);
-            }
-
-        }*/
-        
-        return(0);
-    }
+    
     
 }
 
@@ -178,59 +237,62 @@ public class TicTocToeGame{
         obj.intialize();
         tossVar=obj.toss();
 
-        if(tossVar=='h')
+        /*if(tossVar=='h')
         {
-            obj.selectOption();//choosing symbol of interest
+            obj.selectOption();//choosing symbol of interest for user
             obj.selectBox();//player selection process
         }
         else{
             obj.machineMove(); //calling machine to take decision
-        }
-
+        }*/
+        obj.selectOption();
         while(true){
         
-        //tossVar=((tossVar=='h')?'t':'h');
+        tossVar=((tossVar=='h')?'t':'h');
 
-
+        /*
         if(tossVar=='h')
         tossVar='t';
         else
-        tossVar='h';
+        tossVar='h';*/
 
-        if(tossVar=='h')
+        /*if(tossVar=='h')
         {
             //obj.selectOption();//player selection process
             obj.selectBox();
         }
         else{
             obj.machineMove(); //calling machine to take decision
-        }
+        }*/
 
 
         //obj.showBoard();
-        //obj.selectBox();
+        obj.selectBox();
+        obj.machineMove();
         winner=obj.checkForNextMove();//checking winnig statistics
         if(winner=='T')
         {
             System.out.println("match got tied");
         }
             
-        else if(winner=='o')
+        else if(winner=='o' || winner=='x')
             
         {
-            if(obj.userChoice=='o')
+            if(obj.userChoice==winner)
                 System.out.println("you won the match");
             else
                 System.out.println("machine won the match");
         }
-        else if(winner=='x')
+        //else continue;
+        
+        /*if(winner=='x')
         {
             if(obj.userChoice=='x')
                 System.out.println("you won the match");
             else
                 System.out.println("machine won the match");
         }
-       /* else
+        else
         {
             obj.selectOption();
         }
