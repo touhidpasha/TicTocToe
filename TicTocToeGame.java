@@ -158,6 +158,16 @@ class Game{
             board[3]=(userChoice=='o'?'x':'o');
             return 0;}
         }
+
+        //taking corner position in worst case
+        for(int i=1;i<board.length;i++)
+           { 
+               if(board[i]==' ' && i!=5)
+               {board[i]=(userChoice=='o'?'x':'o');  
+               return 0;
+                 }  
+            }   
+
         //if above conditions not followed then find empty box and place randamoly
 
         for(int i=1;i<board.length;i++)
