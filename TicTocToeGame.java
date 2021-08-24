@@ -70,7 +70,7 @@ class Game{
     public int machineMove(){
         
         //horizontally finding for winning
-        for(int i=1;i<4;i++)
+        for(int i=1;i<4;i++) //these holds good for both blocking opponent to win as well as winning by placing it's own symbol
         {
             if(board[i]==board[i+3])
             if(board[i+6]==' '){
