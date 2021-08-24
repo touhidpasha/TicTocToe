@@ -256,7 +256,7 @@ public class TicTocToeGame{
             obj.machineMove(); //calling machine to take decision
         }*/
         obj.selectOption();
-        while(true){
+        while(true){ 
         
         tossVar=((tossVar=='h')?'t':'h');
 
@@ -280,9 +280,12 @@ public class TicTocToeGame{
         obj.selectBox();
         obj.machineMove();
         winner=obj.checkForNextMove();//checking winnig statistics
+        
+        //below code is to continue untill one person win's or match got tied
         if(winner=='T')
         {
             System.out.println("match got tied");
+            break;
         }
             
         else if(winner=='o' || winner=='x')
@@ -292,6 +295,7 @@ public class TicTocToeGame{
                 System.out.println("you won the match");
             else
                 System.out.println("machine won the match");
+            break;
         }
         //else continue;
         
