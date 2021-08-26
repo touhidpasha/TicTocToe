@@ -18,7 +18,7 @@ class Game{
 
     public char toss()
     {
-        if(((int) ((Math.random() * (6 - 1)) + 1))%2==0)
+        if(((int) ((Math.random() * (6 - 1)) + 1))%2==0)//if random number is even ,then remainder will be 0 sp head will be returned1
             return 'h';
         else
             return 't';
@@ -72,7 +72,7 @@ class Game{
         //horizontally finding for winning
         for(int i=1;i<4;i++) //these holds good for both blocking opponent to win as well as winning by placing it's own symbol
         {
-            if(board[i]==board[i+3])
+            if(board[i]==board[i+3] && board[i]!=' ')
             if(board[i+6]==' '){
             board[i+6]=(userChoice=='o'?'x':'o');
             //selectBox();
@@ -80,15 +80,15 @@ class Game{
         }
         for(int i=1;i<4;i++)
         {
-            if(board[i]==board[i+6])
-            if(board[i+6]==' '){
+            if(board[i]==board[i+6] && board[i]!=' ')
+            if(board[i+3]==' '){
             board[i+3]=(userChoice=='o'?'x':'o');
             //selectBox();
             return(0);}
         }
         for(int i=4;i<7;i++)
         {
-            if(board[i]==board[i+3])
+            if(board[i]==board[i+3] && board[i]!=' ')
             if(board[i-3]==' '){
             board[i-3]=(userChoice=='o'?'x':'o');
             //selectBox();  
@@ -99,7 +99,7 @@ class Game{
         
         for(int i=1;i<8;i=i+3)
         {
-            if(board[i]==board[i+1])
+            if(board[i]==board[i+1] && board[i]!=' ')
             if(board[i+2]==' '){
             board[i+2]=(userChoice=='o'?'x':'o');
             //selectBox();
@@ -111,7 +111,7 @@ class Game{
          
         for(int i=1;i<8;i=i+3)
         {
-            if(board[i]==board[i+2])
+            if(board[i]==board[i+2] && board[i]!=' ')
             if(board[i+1]==' '){
             board[i+1]=(userChoice=='o'?'x':'o');
             //selectBox();
@@ -120,7 +120,7 @@ class Game{
         }
         for(int i=2;i<9;i=i+3)
         {
-            if(board[i]==board[i+1])
+            if(board[i]==board[i+1] && board[i]!=' ')
             if(board[i-1]==' '){
             board[i-1]=(userChoice=='o'?'x':'o');
             //selectBox();
@@ -227,15 +227,49 @@ class Game{
 
             for(int i=1;i<board.length;i++)
            { 
-               if(board[i]!=' ') //code for not tie
+               if(board[i]==' ') //code for not tie
                {
-                    flag='T';
+                    flag='N';
+                    return flag;
+
                }
                else
-                flag='N';
+                flag='T';
             }
         
             return flag;
+    }
+
+    public void makeDecision(char winner)
+    {
+
+        int  playAgain;
+        if(winner=='T')
+        {
+            System.out.println("match got tied");
+            System.out.println("Do you want play another match,press Y/n");
+            playAgain=sc.next().charAt(0);
+            if(playAgain=='Y')
+            intialize();
+            
+        }
+            
+        else if(winner=='o' || winner=='x')
+            {
+            if(userChoice==winner)
+                System.out.println("you won the match");
+            else
+                System.out.println("machine won the match");
+            System.out.println("Do you want play another match,press Y/n");
+            playAgain=sc.next().charAt(0);
+            if(playAgain=='Y')
+            intialize();
+            
+            
+        }
+        
+
+
     }
     
     
@@ -245,123 +279,47 @@ class Game{
 public class TicTocToeGame{
     public static void main(String args[]){
         Game obj=new Game();
-        char tossVar,winner,playAgain;
+        char tossVar,winner;
         Scanner sc=new Scanner(System.in);
         obj.intialize();
         tossVar=obj.toss();
 
-        /*if(tossVar=='h')
+        obj.selectOption();//choosing symbol of interest for user
+
+        if(tossVar=='h')//if toss is head then player plays first
         {
-            obj.selectOption();//choosing symbol of interest for user
+            
             obj.selectBox();//player selection process
         }
         else{
-            obj.machineMove(); //calling machine to take decision
-        }*/
-        obj.selectOption();
+            obj.machineMove();
+        }
+       // obj.selectOption();
         while(true){ 
         
-        tossVar=((tossVar=='h')?'t':'h');
+        tossVar=((tossVar=='h')?'t':'h');//switching toss alternatively
 
-        /*
         if(tossVar=='h')
-        tossVar='t';
-        else
-        tossVar='h';*/
-
-        /*if(tossVar=='h')
         {
-            //obj.selectOption();//player selection process
-            obj.selectBox();
+            obj.selectBox();//calling player to make move
+            obj.showBoard();//showing board after player turn is over
+            winner=obj.checkForNextMove();//checking winnig statistics
+            obj.makeDecision(winner);//taking decison whetheat to continue or declare result if game is completed
         }
         else{
             obj.machineMove(); //calling machine to take decision
-        }*/
+            obj.showBoard();//showing board after machine turn is over
+            winner=obj.checkForNextMove();//checking winnig statistics
+            obj.makeDecision(winner);//taking decison whetheat to continue or declare result if game is completed
+        }
 
-
-        //obj.showBoard();
-        obj.selectBox();
-        obj.showBoard();
-        winner=obj.checkForNextMove();//checking winnig statistics
+       
+        /*obj.selectBox();//calling player to make move
+        obj.showBoard();//showing board after player turn is over
+        obj.machineMove(); //calling machine to take decision
+        obj.showBoard();//showing board after machine turn is over*/
         
-        
-        //below code is to continue untill one person win's or match got tied
-        if(winner=='T')
-        {
-            System.out.println("match got tied");
-            System.out.println("Do you want play another match,press Y/n");
-            playAgain=sc.next().charAt(0);
-            if(playAgain=='Y')
-            obj.intialize();
-            else
-             break;
-            
-        }
-            
-        else if(winner=='o' || winner=='x')
-            {
-            if(obj.userChoice==winner)
-                System.out.println("you won the match");
-            else
-                System.out.println("machine won the match");
-            System.out.println("Do you want play another match,press Y/n");
-            playAgain=sc.next().charAt(0);
-            if(playAgain=='Y')
-            obj.intialize();
-            else
-             break;
-            
-        }
-        //else continue;
-        
-        obj.machineMove();
-        obj.showBoard();
-
-        winner=obj.checkForNextMove();//checking winnig statistics
-        
-        
-        //below code is to continue untill one person win's or match got tied
-        if(winner=='T')
-        {
-            System.out.println("match got tied");
-            System.out.println("Do you want play another match,press Y/n");
-            playAgain=sc.next().charAt(0);
-            if(playAgain=='Y')
-            obj.intialize();
-            else
-             break;
-            
-        }
-            
-        else if(winner=='o' || winner=='x')
-            {
-            if(obj.userChoice==winner)
-                System.out.println("you won the match");
-            else
-                System.out.println("machine won the match");
-            System.out.println("Do you want play another match,press Y/n");
-            playAgain=sc.next().charAt(0);
-            if(playAgain=='Y')
-            obj.intialize();
-            else
-             break;
-            
-        }
-        //else continue;
-        
-
-        /*if(winner=='x')
-        {
-            if(obj.userChoice=='x')
-                System.out.println("you won the match");
-            else
-                System.out.println("machine won the match");
-        }
-        else
-        {
-            obj.selectOption();
-        }
-        }*/
+       
     }
         
     }
