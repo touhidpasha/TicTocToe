@@ -6,7 +6,7 @@ class Game{
 
     Scanner sc=new Scanner(System.in);
     public char[] board=new char[10];
-    char userChoice,machineChoice; 
+    char userChoice; 
     int boxNumber;   
     
     public void intialize(){
@@ -32,21 +32,22 @@ class Game{
     {
         System.out.println("Enter x or o as your choice");
         userChoice=sc.next().charAt(0);
-        machineChoice=(userChoice=='o'?'x':'o');
+        //machineChoice=(userChoice=='o'?'x':'o');
         //selectBox();
     }
 
     public void showBoard(){//shows cureent board entries
         int i=1;
-        System.out.println("##############");
+        System.out.println("----------");
         while(i<board.length)
            { 
                for( int j=0;j<3;j++)
-                    System.out.print(" "+board[i++]);
-                System.out.println();
+                    System.out.print("| "+board[i++]);
+                System.out.println("|");
+                System.out.println("----------");
                 
            }
-           System.out.println("##############");
+           System.out.println("----------");
         
     }
 
@@ -72,7 +73,69 @@ class Game{
 
     public int machineMove(){//for machine to make move
         
-        //horizontally finding for winning
+        //horizontally finding for winning---preference one
+        for(int i=1;i<4;i++) // winning by placing it's own symbol
+        {
+            if(board[i]==board[i+3] && board[i]!=' ' && board[i]==(userChoice=='o'?'x':'o'))
+            if(board[i+6]==' '){
+            board[i+6]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            return(0);}
+        }
+        for(int i=1;i<4;i++)
+        {
+            if(board[i]==board[i+6] && board[i]!=' '  && board[i]==(userChoice=='o'?'x':'o'))
+            if(board[i+3]==' '){
+            board[i+3]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            return(0);}
+        }
+        for(int i=4;i<7;i++)
+        {
+            if(board[i]==board[i+3] && board[i]!=' '  && board[i]==(userChoice=='o'?'x':'o'))
+            if(board[i-3]==' '){
+            board[i-3]=(userChoice=='o'?'x':'o');
+            //selectBox();  
+        return(0);}
+        }
+
+        //vertically finding for winning
+        
+        for(int i=1;i<8;i=i+3)
+        {
+            if(board[i]==board[i+1] && board[i]!=' '  && board[i]==(userChoice=='o'?'x':'o')) 
+            if(board[i+2]==' '){
+            board[i+2]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            
+            return(0);}
+
+        }
+
+         
+        for(int i=1;i<8;i=i+3)
+        {
+            if(board[i]==board[i+2] && board[i]!=' '  && board[i]==(userChoice=='o'?'x':'o'))
+            if(board[i+1]==' '){
+            board[i+1]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            return(0);}
+
+        }
+        for(int i=2;i<9;i=i+3)
+        {
+            if(board[i]==board[i+1] && board[i]!=' '  && board[i]==(userChoice=='o'?'x':'o'))
+            if(board[i-1]==' '){
+            board[i-1]=(userChoice=='o'?'x':'o');
+            //selectBox();
+            return(0);}
+
+        }
+
+        //finding for winning
+
+
+        //blocking opponent to win
         for(int i=1;i<4;i++) //these holds good for both blocking opponent to win as well as winning by placing it's own symbol
         {
             if(board[i]==board[i+3] && board[i]!=' ')
@@ -130,6 +193,7 @@ class Game{
             return(0);}
 
         }
+    //logic for blocking opponent
 
         //cross checking
         if(board[1]==board[5])
