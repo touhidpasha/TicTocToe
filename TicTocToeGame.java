@@ -19,13 +19,16 @@ class Game{
     public char toss()
     {
         if(((int) ((Math.random() * (6 - 1)) + 1))%2==0)//if random number is even ,then remainder will be 0 sp head will be returned1
-            return 'h';
-        else
+            {System.out.println("You won the toss , so make first move");
+                return 'h';}
+        else{
+            System.out.println("You lost the toss...machine will make first move");
             return 't';
 
+        }
     }
 
-    public void selectOption()
+    public void selectOption()//for selection of symbol of interest by user
     {
         System.out.println("Enter x or o as your choice");
         userChoice=sc.next().charAt(0);
@@ -33,7 +36,7 @@ class Game{
         //selectBox();
     }
 
-    public void showBoard(){
+    public void showBoard(){//shows cureent board entries
         int i=1;
         System.out.println("##############");
         while(i<board.length)
@@ -47,7 +50,7 @@ class Game{
         
     }
 
-    public void selectBox(){
+    public void selectBox(){//for user to make move
         System.out.println("\n");
         System.out.println("These are current board values ");
         showBoard();
@@ -67,7 +70,7 @@ class Game{
         
     }
 
-    public int machineMove(){
+    public int machineMove(){//for machine to make move
         
         //horizontally finding for winning
         for(int i=1;i<4;i++) //these holds good for both blocking opponent to win as well as winning by placing it's own symbol
@@ -185,7 +188,7 @@ class Game{
 
     
 
-    public char checkWinner()
+    public char checkWinner()//checking if anyone whon the match
     {
         if(board[1]==board[2] && board[2]==board[3] )
             return board[1];
@@ -207,14 +210,14 @@ class Game{
         return 'N';
     }
             
-    public char checkForNextMove(){
+    public char checkForNextMove(){//declaring result based on result got from checkwinner function
         char flag='N';
         for(int i=1;i<board.length;i++)
            { 
                if(board[i]==' ') //code for not tie
                {
                 //flag='N';
-                flag=checkWinner();
+                flag=checkWinner();//declaring result based on result got from checkwinner function
                 
                 if(flag!='N')
                     {   
@@ -240,7 +243,7 @@ class Game{
             return flag;
     }
 
-    public void makeDecision(char winner)
+    public void makeDecision(char winner)//making next move for both the players after each move
     {
 
         int  playAgain;
@@ -282,19 +285,17 @@ public class TicTocToeGame{
         char tossVar,winner;
         Scanner sc=new Scanner(System.in);
         obj.intialize();
-        tossVar=obj.toss();
-
         obj.selectOption();//choosing symbol of interest for user
+        tossVar=obj.toss();
 
         if(tossVar=='h')//if toss is head then player plays first
         {
-            
             obj.selectBox();//player selection process
         }
         else{
             obj.machineMove();
         }
-       // obj.selectOption();
+      
         while(true){ 
         
         tossVar=((tossVar=='h')?'t':'h');//switching toss alternatively
@@ -314,11 +315,7 @@ public class TicTocToeGame{
         }
 
        
-        /*obj.selectBox();//calling player to make move
-        obj.showBoard();//showing board after player turn is over
-        obj.machineMove(); //calling machine to take decision
-        obj.showBoard();//showing board after machine turn is over*/
-        
+       
        
     }
         
