@@ -18,7 +18,7 @@ class Game{
 
     public char toss()
     {
-        if(((int) ((Math.random() * (6 - 1)) + 1))%2==0)//if random number is even ,then remainder will be 0 sp head will be returned1
+        if(((int) ((Math.random() * (6 - 1)) + 1))%2==0)//if random number is even ,then remainder will be 0 so head will be returned1
             {System.out.println("You won the toss , so make first move");
                 return 'h';}
         else{
@@ -360,7 +360,7 @@ public class TicTocToeGame{
             obj.machineMove();
         }
       
-        while(true){ 
+        while(true){ ///playing more than once based on user preference
         
         tossVar=((tossVar=='h')?'t':'h');//switching toss alternatively
 
